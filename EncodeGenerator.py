@@ -3,7 +3,9 @@ import face_recognition
 import pickle
 import os
 import firebase_admin
-from firebase_admin import credentials, storage
+from firebase_admin import credentials
+from firebase_admin import db
+from firebase_admin import  storage
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
@@ -11,18 +13,26 @@ firebase_admin.initialize_app(cred, {
     'storageBucket': 'facerecognition-47b6a.appspot.com'
 })
 
-folderPath = 'photos'
-imgPathList = os.listdir(folderPath)
-imgList = []
-studentsIds = []
-for path in imgPathList:
-    imgList.append(cv2.imread(os.path.join(folderPath, path)))
-    studentsIds.append(os.path.splitext(path)[0])
 
-    filename = f'{folderPath}/{path}'
+# Importing student images
+folderPath = 'photos'
+pathList = os.listdir(folderPath)
+print(pathList)
+imgList = []
+studentIds = []
+for path in pathList:
+    imgList.append(cv2.imread(os.path.join(folderPath, path)))
+    studentIds.append(os.path.splitext(path)[0])
+
+    fileName = f'{folderPath}/{path}'
     bucket = storage.bucket()
-    blob = bucket.blob(filename)
-    blob.upload_from_filename(filename)
+    blob = bucket.blob(fileName)
+    blob.upload_from_filename(fileName)
+
+
+    # print(path)
+    # print(os.path.splitext(path)[0])
+print(studentIds)
 
 
 def findEncodings(imagesList):
@@ -34,20 +44,43 @@ def findEncodings(imagesList):
 
     return encodeList
 
-encodeListKnown = findEncodings(imgList)
-encodeListKnownWithIds = [encodeListKnown, studentsIds]
 
-file = open('encodeFile.p', 'wb')
+print("Encoding Started ...")
+encodeListKnown = findEncodings(imgList)
+encodeListKnownWithIds = [encodeListKnown, studentIds]
+print("Encoding Complete")
+
+file = open("EncodeFile.p", 'wb')
 pickle.dump(encodeListKnownWithIds, file)
 file.close()
+print("File Saved")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # import cv2
 # import face_recognition
 # import pickle
 # import os
 # import firebase_admin
-# from firebase_admin import credentials
-# from firebase_admin import db
-# from firebase_admin import  storage
+# from firebase_admin import credentials, storage
 #
 # cred = credentials.Certificate("serviceAccountKey.json")
 # firebase_admin.initialize_app(cred, {
@@ -55,26 +88,18 @@ file.close()
 #     'storageBucket': 'facerecognition-47b6a.appspot.com'
 # })
 #
-#
-# # Importing student images
 # folderPath = 'photos'
-# pathList = os.listdir(folderPath)
-# print(pathList)
+# imgPathList = os.listdir(folderPath)
 # imgList = []
-# studentIds = []
-# for path in pathList:
+# studentsIds = []
+# for path in imgPathList:
 #     imgList.append(cv2.imread(os.path.join(folderPath, path)))
-#     studentIds.append(os.path.splitext(path)[0])
+#     studentsIds.append(os.path.splitext(path)[0])
 #
-#     fileName = f'{folderPath}/{path}'
+#     filename = f'{folderPath}/{path}'
 #     bucket = storage.bucket()
-#     blob = bucket.blob(fileName)
-#     blob.upload_from_filename(fileName)
-#
-#
-#     # print(path)
-#     # print(os.path.splitext(path)[0])
-# print(studentIds)
+#     blob = bucket.blob(filename)
+#     blob.upload_from_filename(filename)
 #
 #
 # def findEncodings(imagesList):
@@ -86,13 +111,9 @@ file.close()
 #
 #     return encodeList
 #
-#
-# print("Encoding Started ...")
 # encodeListKnown = findEncodings(imgList)
-# encodeListKnownWithIds = [encodeListKnown, studentIds]
-# print("Encoding Complete")
+# encodeListKnownWithIds = [encodeListKnown, studentsIds]
 #
-# file = open("EncodeFile.p", 'wb')
+# file = open('encodeFile.p', 'wb')
 # pickle.dump(encodeListKnownWithIds, file)
 # file.close()
-# print("File Saved")
