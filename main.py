@@ -93,6 +93,7 @@ while True:
                 blob = bucket.get_blob(f'photos/{id}.png')
                 array = np.frombuffer(blob.download_as_string(), np.uint8)
                 imgStudent = cv2.imdecode(array, cv2.COLOR_BGRA2BGR)
+                newImgStudent = cv2.resize(imgStudent, (216, 216))
                 # Update data of attendance
                 datetimeObject = datetime.strptime(studentInfo['last_attendance_time'],
                                                    "%Y-%m-%d %H:%M:%S")
@@ -127,7 +128,7 @@ while True:
                     cv2.putText(imgBackground, str(studentInfo['name']), (808 + offset, 445),
                                 cv2.FONT_HERSHEY_COMPLEX, 1, (50, 50, 50), 1)
 
-                    imgBackground[175:175 + 216, 909:909 + 216] = imgStudent
+                    imgBackground[175:175 + 216, 909:909 + 216] = newImgStudent\
 
                 counter += 1
 
