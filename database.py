@@ -12,31 +12,31 @@ ref = db.reference('Students')
 data = {
     "1":
         {
-            "name": "Emly Blunt",
-            "major": "Economics",
+            "name": "J Hariharan",
+            "major": "CSE",
             "total_attendance": 0,
-            "last_attendance_time": "2022-12-11 00:54:34"
+            "last_attendance_time": "2023-11-12 00:54:34"
         },
     "2":
         {
             "name": "Elon Musk",
             "major": "Physics",
             "total_attendance": 0,
-            "last_attendance_time": "2022-12-11 00:54:34"
+            "last_attendance_time": "2023-11-12 00:54:34"
         },
     "3":
         {
             "name": "Steve Jobs",
             "major": "Physics",
             "total_attendance": 0,
-            "last_attendance_time": "2022-12-11 00:54:34"
+            "last_attendance_time": "2023-11-12 00:54:34"
         },
     "4":
         {
             "name": "Annas Furquan Pasha",
             "major": "MPC",
             "total_attendance": 0,
-            "last_attendance_time": "2022-12-11 00:54:34"
+            "last_attendance_time": "2022-11-12 00:54:34"
         }
 }
 

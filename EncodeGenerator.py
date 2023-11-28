@@ -4,7 +4,6 @@ import pickle
 import os
 import firebase_admin
 from firebase_admin import credentials
-from firebase_admin import db
 from firebase_admin import  storage
 
 cred = credentials.Certificate("serviceAccountKey.json")
@@ -23,13 +22,10 @@ studentIds = []
 for path in pathList:
     imgList.append(cv2.imread(os.path.join(folderPath, path)))
     studentIds.append(os.path.splitext(path)[0])
-
     fileName = f'{folderPath}/{path}'
     bucket = storage.bucket()
     blob = bucket.blob(fileName)
     blob.upload_from_filename(fileName)
-
-
     # print(path)
     # print(os.path.splitext(path)[0])
 print(studentIds)
