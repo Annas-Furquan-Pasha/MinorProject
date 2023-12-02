@@ -14,7 +14,7 @@ firebase_admin.initialize_app(cred, {
 
 
 # Importing student images
-folderPath = 'photos'
+folderPath = '../photos'
 pathList = os.listdir(folderPath)
 print(pathList)
 imgList = []
@@ -46,7 +46,7 @@ encodeListKnown = findEncodings(imgList)
 encodeListKnownWithIds = [encodeListKnown, studentIds]
 print("Encoding Complete")
 
-file = open("EncodeFile.p", 'wb')
+file = open("../EncodeFile.p", 'wb')
 pickle.dump(encodeListKnownWithIds, file)
 file.close()
 print("File Saved")

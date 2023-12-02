@@ -10,7 +10,7 @@ from firebase_admin import storage
 import numpy as np
 from datetime import datetime
 
-cred = credentials.Certificate("serviceAccountKey.json")
+cred = credentials.Certificate("files/serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://minorproject-f2572-default-rtdb.firebaseio.com/',
     'storageBucket': 'minorproject-f2572.appspot.com'
